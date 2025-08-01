@@ -1,0 +1,28 @@
+{
+  "name": "grammy-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "type": "module"
+  },
+  "keywords": [
+    "backend",
+    "js",
+    "express",
+    "mongoDB",
+    "mongoose"
+  ],
+  "author": "Nayan Patidar",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.4",
+    "prettier": "^3.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
