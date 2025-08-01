@@ -8,6 +8,8 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import Signup from "./pages/SignUp";
+import ShopingDetails from './pages/ShopingDetails';
+
 
 function App() {
 
@@ -21,6 +23,7 @@ function App() {
           <Route path='contactus' element = {<ContactUs />} caseSensitive/>
           <Route path='login' element = {<Login />} caseSensitive/>
           <Route path='signup' element = {<Signup />} caseSensitive/>
+          <Route path='shoping-details' element = {<ShopingDetails />} caseSensitive/>         
       </Route>
     )
   )
