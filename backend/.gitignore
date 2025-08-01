@@ -1,14 +1,2 @@
-# Node
-node_modules
-npm-debug.log
-
-# Environment variables
+node_modules/
 .env
-.env.local
-
-# Logs
-logs
-*.log
-
-# Mac system files
-.DS_Store
