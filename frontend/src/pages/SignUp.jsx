@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Signup() {
   const [name, setName] = useState("");
@@ -7,18 +9,37 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if(!email || !name || !password || !confirmPassword){
-        console.log("all fields are required!")
-    }
+  const handleSubmit = async (e) => {
+    try{
+       e.preventDefault();
 
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    console.log({ name, email, password });
+    const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/register`, {
+      name,
+      email,
+      password
+    },
+);
+    console.log(data);
+    if(data.success){
+      toast.success("Registered Successfully", {
+        theme: "colored",
+      })
+    } else{
+      toast.error("There is some issue!", {
+        className: "text-sm font:semibold max-w-xs text-red-500",
+      })
+    }
+    }
+   catch (err) {
+  toast.error(err.response?.data?.message || err.message, {
+    className: 'text-sm max-w-xs',
+  });
+}
+    
   };
 
   return (
