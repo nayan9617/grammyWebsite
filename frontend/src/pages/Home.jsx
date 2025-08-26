@@ -56,7 +56,7 @@ function Home() {
         <div className="w-full">
           <img
             style={{
-              height: "450px",
+              height: "550px",
               width: "1500px",
             }}
             src="mainPicGrammy.webp"
@@ -84,8 +84,8 @@ function Home() {
         onClick={() => (
             navigate("/shop")
         )}
-        className="flex items-center gap-2 cursor-pointer">
-          <p className="text-black right-10 font-semibold hover:text-amber-500">
+        className="flex items-center gap-2 cursor-pointer px-5">
+          <p className="text-black font-semibold hover:text-amber-500">
             See all
           </p>
           <img
@@ -98,11 +98,11 @@ function Home() {
         </div>
       </div>
 
-      <div className="flex items-center gap-3.5 py-5">
+      <div className="flex items-center gap-3.5 py-5 justify-center">
         {contents.map((content) => (
           <div className="flex flex-col items-start cursor-pointer">
             <img
-              className="h-67 w-76 transition-transform duration-300 ease-in-out hover:scale-105 outline-none hover:shadow-lg rounded-2xl"
+              className="h-73 w-76 transition-transform duration-300 ease-in-out hover:scale-105 outline-none hover:shadow-lg rounded-2xl"
               src={content.img}
               alt="Guitar 1"
             />
