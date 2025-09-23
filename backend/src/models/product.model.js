@@ -18,11 +18,6 @@ const productSchema= new mongoose.Schema({
         ref:"Category",
         required:true
     },
-    brand:{
-        type:Schema.Types.ObjectId,
-        ref:"Brand",
-        required:true
-    },
     stockQuantity:{
         type:Number,
         required:true
