@@ -83,4 +83,67 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser };
+
+const logoutUser = async(req, res) =>{
+  try{
+    await User.findByIdAndUpdate(
+      req.user._id, 
+      {
+        $set:{refreshToken: undefined}
+      }, 
+      {
+        new:true
+      });
+    const options = {
+      httpOnly: true,
+      secure: true,
+    }
+    res.status(200
+      .clearCookie("accessToken", options)
+      .clearCookie("refreshToken", options)
+      .json({message: "Logged out successfully!"})
+    )
+  } catch(error){
+    res.status(500).json({ message: err.message });
+  }
+}
+
+const refreshAccessToken = async(req, res) =>{
+  const incomingRefreshToken = req.body?.refreshToken || req.cookies?.refreshToken;
+  if(!incomingRefreshToken){
+    return res.status(401).json({message: "Unauthorized request!"});
+  }
+
+  try{
+    const decodedToken = jwt.verify(incomingRefreshToken, process.env.REFRESH_TOKEN_SECRET);
+    if(!decodedToken?._id){
+      return res.status(401).json({message: "Unauthorized request!"});
+    }
+    const user = await User.findById(decodedToken?._id).select("-password -refreshToken");
+    if(!user){
+      return res.status(401).json({message: "Unauthorized request!"});
+    }
+    const accessToken = user.generateAccessToken();
+    const refreshToken = user.generateRefreshToken();
+    const options = {
+      httpOnly: true,
+      secure: true,
+    }
+    return res.status(200)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
+      .json({
+        message: "New access token generated successfully!",
+        accessToken,
+        user:{
+          id: user._id,
+          name: user.name,
+          email: user.email,
+        }
+      })
+  } catch(error){
+    res.status(500).json({ message: err.message });
+  }
+}
+
+export { registerUser, loginUser, logoutUser, refreshAccessToken };
